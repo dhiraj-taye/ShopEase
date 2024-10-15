@@ -14,11 +14,18 @@ const port = process.env.PORT || 4000;
 connectDB();
 connectCloudinary();
 
+// Custom CORS options
+const corsOptions = {
+  origin: 'http://localhost:5173', // Allow your frontend origin
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed HTTP methods
+  credentials: true, // Allow sending cookies
+};
+
 // middleware
 app.use(express.json());
-app.use(cors());
+app.use(cors(corsOptions)); // Use custom CORS options
 app.use("/api/cart", cartRouter);
-app.use('/api/order',orderRouter);
+app.use("/api/order", orderRouter);
 
 // api endpoints
 app.use("/api/user", userRouter);
